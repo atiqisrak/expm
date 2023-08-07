@@ -1,13 +1,202 @@
+/* index.css */
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+/* Apply a background to the entire page */
 body {
+  background: linear-gradient(135deg, #e2e2e2, #c3c3c3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Apply a glassmorphism-style container */
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 90px;
+  max-width: 1280px;
+  width: 100%;
+}
+
+/* Style for the input fields */
+input {
+  width: 100%;
+  max-width: 60vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  color: rgb(52, 52, 52);
+  font-size: 2em;
+  font-weight: 600;
+}
+
+/* Style for buttons */
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+/* Style for table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-bottom: 3em;
+}
+
+table,
+th,
+td {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Style for table header */
+th {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  text-align: center;
+}
+
+/* Style for table cells */
+td {
+  padding: 10px;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+/* Apply motion effect on hover */
+button:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* Apply motion effect on input focus */
+input:focus {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Apply motion effect on table rows */
+tr:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.receivable {
+  color: #039aff;
+}
+
+/* Apply red color to "Payable" cells */
+.payable {
+  color: #ff5100;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.popup-content {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 80%;
+  width: 60vw;
+  max-height: 80%;
+  overflow: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.popup button {
+  margin-bottom: 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 15px;
+  border: none;
+  background: #ff5100;
+  color: white;
+  font-size: 20px;
+  border-radius: 50;
+  cursor: pointer;
+}
+
+.reset-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background: #ff5100;
+  color: white;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    max-width: 80vw;
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  input {
+    font-size: 1.2em;
+    width: 60vw;
+  }
+  table {
+    margin-top: 10px;
+    margin-bottom: 2em;
+  }
+  th,
+  td {
+    font-size: 1.2em;
+    padding: 5px;
+  }
+  tr:last-child > div {
+    border-bottom: 2px solid orange;
+  }
+  button:hover {
+    transform: scale(1);
+    transition: transform 0.3s ease;
+  }
+  input:focus {
+    box-shadow: none;
+  }
+}
+
+/* Style for the mobile table */
+.mobile-table {
+  display: none;
 }

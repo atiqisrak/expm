@@ -7,7 +7,7 @@ export default function Persons({ onNext }) {
     onNext(numPersons);
   };
   return (
-    <div>
+    <div className="container">
       <h1>Welcome to the Meal Expense Calculator</h1>
       <label htmlFor="numPersons">Number of Persons:</label>
       <input

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 function Calculation({ numPersons }) {
   const [personsData, setPersonsData] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleExpenseChange = (index, expense) => {
     const updatedPersonsData = [...personsData];
@@ -33,10 +34,12 @@ function Calculation({ numPersons }) {
     }));
 
     setPersonsData(owesData);
+    setShowPopup(true);
   };
 
   const handleReset = () => {
     setPersonsData([]);
+    setShowPopup(false);
   };
 
   // Function to convert Arabic numerals to Bengali numerals
@@ -61,8 +64,8 @@ function Calculation({ numPersons }) {
   };
 
   return (
-    <div>
-      <h2>Enter Expenses and Meals for Each Person</h2>
+    <div className="container">
+      <h2>Enter Expenses and Meals</h2>
       {Array.from({ length: numPersons }).map((_, index) => (
         <div key={index}>
           <h3>Person {index + 1}</h3>
@@ -85,36 +88,117 @@ function Calculation({ numPersons }) {
         </div>
       ))}
       <button onClick={calculateOwes}>Calculate</button>
-      <button onClick={handleReset}>Reset</button> {/* New reset button */}
-      <h2>Calculated Owes</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Person</th>
-            <th>Expense</th>
-            <th>Meals</th>
-            <th>Owes</th>
-          </tr>
-        </thead>
-        <tbody>
-          {personsData.map((person, index) => (
-            <tr key={index}>
-              <td>Person {index + 1}</td>
-              <td>৳{person.expense || 0}</td>
-              <td>{person.meals || 0}</td>
-              <td>
-                {person.owes > 0
-                  ? `${convertToBengaliNumeral(person.owes.toFixed(2))} Payable`
-                  : person.owes < 0
-                  ? `${convertToBengaliNumeral(
-                      (-person.owes).toFixed(2)
-                    )} Receivable`
-                  : "Settled"}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <button className="close-btn" onClick={() => setShowPopup(false)}>
+              x
+            </button>
+            {/* Table content */}
+            <h2>Calculated Owes</h2>
+            <div className="desktop-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Person</th>
+                    <th>Expense</th>
+                    <th>Meals</th>
+                    <th>Owes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {personsData.map((person, index) => (
+                    <tr key={index}>
+                      <td>Person {index + 1}</td>
+                      <td>৳{person.expense || 0}</td>
+                      <td>{person.meals || 0}</td>
+                      <td>
+                        {person.owes > 0
+                          ? `${convertToBengaliNumeral(
+                              person.owes.toFixed(2)
+                            )} `
+                          : person.owes < 0
+                          ? `${convertToBengaliNumeral(
+                              (-person.owes).toFixed(2)
+                            )} `
+                          : "Settled "}
+                        <span
+                          className={
+                            person.owes > 0
+                              ? "receivable"
+                              : person.owes < 0
+                              ? "payable"
+                              : ""
+                          }
+                        >
+                          {person.owes > 0
+                            ? "Receivable"
+                            : person.owes < 0
+                            ? "Payable"
+                            : "Settled"}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mobile-table">
+              <table>
+                {/* <thead>
+                  <tr>
+                    <th>Person</th>
+                    <th>Expense</th>
+                    <th>Meals</th>
+                    <th>Owes</th>
+                  </tr>
+                </thead> */}
+                <tbody>
+                  {personsData.map((person, index) => (
+                    <tr key={index}>
+                      <td>Person {index + 1}</td>
+                      <td>
+                        <tr>৳{person.expense || 0}</tr>
+                        <tr>{person.meals || 0}</tr>
+                        <tr>
+                          {person.owes > 0
+                            ? `${convertToBengaliNumeral(
+                                person.owes.toFixed(2)
+                              )} `
+                            : person.owes < 0
+                            ? `${convertToBengaliNumeral(
+                                (-person.owes).toFixed(2)
+                              )} `
+                            : "Settled "}
+                          <span
+                            className={
+                              person.owes > 0
+                                ? "receivable"
+                                : person.owes < 0
+                                ? "payable"
+                                : ""
+                            }
+                          >
+                            {person.owes > 0
+                              ? "Receivable"
+                              : person.owes < 0
+                              ? "Payable"
+                              : "Settled"}
+                          </span>
+                        </tr>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <button className="reset-btn" onClick={handleReset}>
+              Reset
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
