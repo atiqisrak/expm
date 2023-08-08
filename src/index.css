@@ -1,5 +1,3 @@
-/* index.css */
-
 * {
   font-family: "Poppins", sans-serif;
 }
@@ -132,6 +130,15 @@ tr:hover {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+.popup td {
+  color: #c3c3c3;
+}
+.popup td:first-child {
+  color: rgb(255, 136, 16);
+}
+.popup-content td:last-child {
+  color: rebeccapurple;
 }
 
 .popup button {

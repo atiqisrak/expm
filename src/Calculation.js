@@ -3,6 +3,13 @@ import React, { useState } from "react";
 function Calculation({ numPersons }) {
   const [personsData, setPersonsData] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [personNames, setPersonNames] = useState(Array(numPersons).fill(""));
+
+  const handleNameChange = (index, name) => {
+    const updatedNames = [...personNames];
+    updatedNames[index] = name;
+    setPersonNames(updatedNames);
+  };
 
   const handleExpenseChange = (index, expense) => {
     const updatedPersonsData = [...personsData];
@@ -69,6 +76,13 @@ function Calculation({ numPersons }) {
       {Array.from({ length: numPersons }).map((_, index) => (
         <div key={index}>
           <h3>Person {index + 1}</h3>
+          <label htmlFor={`name-${index}`}>Name:</label>
+          <input
+            type="text"
+            id={`name-${index}`}
+            value={personNames[index]}
+            onChange={(e) => handleNameChange(index, e.target.value)}
+          />
           <label htmlFor={`expense-${index}`}>Expense:</label>
           <input
             type="number"
@@ -110,7 +124,7 @@ function Calculation({ numPersons }) {
                 <tbody>
                   {personsData.map((person, index) => (
                     <tr key={index}>
-                      <td>Person {index + 1}</td>
+                      <td>{personNames[index]}</td>
                       <td>৳{person.expense || 0}</td>
                       <td>{person.meals || 0}</td>
                       <td>
@@ -133,10 +147,10 @@ function Calculation({ numPersons }) {
                           }
                         >
                           {person.owes > 0
-                            ? "Receivable"
+                            ? "পাবে"
                             : person.owes < 0
-                            ? "Payable"
-                            : "Settled"}
+                            ? "দেবে"
+                            : "ক্লিয়ার"}
                         </span>
                       </td>
                     </tr>
